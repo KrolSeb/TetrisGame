@@ -1,0 +1,9 @@
+html, body {
+  width: 100%; }
+
+canvas {
+  border: solid 3px #3aa7f8;
+  position: relative;
+  height: auto; }
+
+/*# sourceMappingURL=main.css.map */
