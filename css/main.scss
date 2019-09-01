@@ -1,9 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Saira:400,700&display=swap');
+
 html, body {
   width: 100%;
 }
 
-canvas {
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-image: url("../assets/background.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.red-text {
+  color: #ff0000;
+}
+
+.blue-text {
+  color: #3aa7f8;
+}
+
+.white-text {
+  color: blanchedalmond;
+}
+
+.default-column-style {
+  margin: auto;
+  left: 0;
+  right: 0;
+  background-color: #040405;
+  border: solid 3px blanchedalmond;
+}
+
+.default-column-header {
+  font-size: 28px;
+  color: #3aa7f8;
+  font-weight: bold;
+}
+
+.canvas-style {
   border: solid 3px #3aa7f8;
   position: relative;
   height: auto;
+}
+
+.blink-effect {
+  font-family: 'Orbitron', sans-serif;
+  background-color: transparent;
+  padding: 0 0 15px 0;
+  font-size: 28px;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-transform: uppercase;
+  font-weight: normal;
+  animation: blink 1s steps(1) infinite;
+}
+
+.pause-overlay {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(25, 25, 25, .5);
+  position: absolute;
+  visibility: hidden;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 767px) {
+  .default-column-style {
+    background: transparent;
+    border: none;
+  }
 }

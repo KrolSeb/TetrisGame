@@ -4,6 +4,12 @@ const canvasBackgroundColor = '#040405';
 let context = canvas.getContext('2d');
 const mobileScreenWidth = window.matchMedia("(max-width: 767px)");
 
+let isGamePaused = false;
+let pauseOverlay = document.getElementById("pauseOverlay");
+
+let columnPointsCount = document.getElementById('column-points-count');
+let columnLinesCount = document.getElementById('column-lines-count');
+
 //Initialize on site launch
 setCanvasProperties();
 setContextProperties();
@@ -29,6 +35,7 @@ function resize() {
   let ratio = canvas.width / canvas.height;
   let width = height * ratio;
   canvas.style.width = width * getCanvasScale() + 'px';
+  pauseOverlay.style.width = width * getCanvasScale() + 'px';
 }
 
 function getCanvasScale() {
@@ -129,6 +136,8 @@ function playerDrop() {
     merge(arena, player);
     playerReset();
     arenaSweep();
+    updateScore();
+    updateLines();
   }
   dropCounter = 0;
 }
@@ -164,6 +173,10 @@ function playerReset() {
   player.position.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
   if (collide(arena, player)) {
     arena.forEach(row => row.fill(0));
+    player.score = 0;
+    player.lines = 0;
+    updateScore();
+    updateLines();
   }
 }
 
@@ -180,7 +193,8 @@ function arenaSweep() {
     arena.unshift(row);
     ++y;
 
-    rowCount *= 2;
+    player.score += rowCount * 20;
+    player.lines += rowCount;
   }
 }
 
@@ -226,6 +240,8 @@ let dropCounter = 0;
 let lastTime = 0;
 
 function update(time = 0) {
+  if (isGamePaused) return;
+
   const dropInterval = 1000;
   const deltaTime = time - lastTime;
 
@@ -240,25 +256,55 @@ function update(time = 0) {
   requestAnimationFrame(update);
 }
 
-document.addEventListener('keydown', event => {
-  switch (event.keyCode) {
-    case 37:
-      playerMove(-1);
-      break;
-    case 39:
-      playerMove(1);
-      break;
-    case 40:
-      playerDrop();
-      break;
-    case 81:
-      playerRotate(-1);
-      break;
-    case 87:
-      playerRotate(1);
-      break;
+function updateScore() {
+  columnPointsCount.innerText = player.score;
+}
+
+function updateLines() {
+  columnLinesCount.innerText = player.lines;
+}
+
+function pauseGame() {
+  isGamePaused = !isGamePaused;
+  if (isGamePaused) {
+    pauseOverlay.style.visibility = "visible";
   }
-});
+  else {
+    pauseOverlay.style.visibility = "hidden";
+    update();
+  }
+}
+
+function activateGameKeycodes() {
+  document.addEventListener('keydown', event => {
+    if (event.keyCode === 80) {
+      pauseGame();
+    }
+    executeGameActionUsingKeyboard();
+  });
+}
+
+function executeGameActionUsingKeyboard() {
+  if (!isGamePaused) {
+    switch (event.keyCode) {
+      case 37:
+        playerMove(-1);
+        break;
+      case 39:
+        playerMove(1);
+        break;
+      case 40:
+        playerDrop();
+        break;
+      case 81:
+        playerRotate(-1);
+        break;
+      case 87:
+        playerRotate(1);
+        break;
+    }
+  }
+}
 
 const colors = [
   null,
@@ -276,7 +322,12 @@ const arena = createMatrix(12, 20);
 const player = {
   position: {x: 0, y: 0},
   matrix: null,
+  score: 0,
+  lines: 0
 };
 
 playerReset();
+activateGameKeycodes();
+updateScore();
+updateLines();
 update();
