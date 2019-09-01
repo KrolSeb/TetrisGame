@@ -12,6 +12,10 @@ body {
   background-size: cover;
   text-align: center; }
 
+p {
+  font-size: 17px;
+  font-weight: bold; }
+
 .red-text {
   color: #ff0000; }
 
@@ -51,13 +55,9 @@ body {
 
 @keyframes blink-effect {
   0% {
-    opacity: 0;
-  }
+    opacity: 0; }
   50% {
-    opacity: 1;
-  }
-}
-
+    opacity: 1; } }
 .pause-overlay {
   display: flex;
   height: 100%;
@@ -77,5 +77,28 @@ body {
   .default-column-style {
     background: transparent;
     border: none; } }
+.game-control-icon {
+  width: 30px; }
+
+button {
+  padding: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  display: inline-block;
+  cursor: pointer; }
+
+.btn {
+  transition: none; }
+
+.arrow-button {
+  background-color: #3aa7f8; }
+
+.rotate-button {
+  background-color: #f37f7f; }
+
+.play-button {
+  background-color: #4aaa41; }
+
+.pause-button {
+  background-color: #ff0000; }
 
 /*# sourceMappingURL=main.css.map */

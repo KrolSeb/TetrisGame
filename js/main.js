@@ -10,6 +10,9 @@ let pauseOverlay = document.getElementById("pauseOverlay");
 let columnPointsCount = document.getElementById('column-points-count');
 let columnLinesCount = document.getElementById('column-lines-count');
 
+let playPauseGameButton = document.getElementById("buttonPlayPauseGame");
+let playPauseImage = document.getElementById("playPauseImage");
+
 //Initialize on site launch
 setCanvasProperties();
 setContextProperties();
@@ -268,11 +271,22 @@ function pauseGame() {
   isGamePaused = !isGamePaused;
   if (isGamePaused) {
     pauseOverlay.style.visibility = "visible";
+    playPauseGameButton.classList.add('pause-button');
+    playPauseGameButton.classList.remove('play-button');
+    playPauseImage.src = "assets/img/pause.svg";
   }
   else {
     pauseOverlay.style.visibility = "hidden";
+    playPauseGameButton.classList.add('play-button');
+    playPauseGameButton.classList.remove('pause-button');
+    playPauseImage.src = "assets/img/play.svg";
     update();
   }
+}
+
+function activateControls() {
+  activateGameKeycodes();
+  activateGameButtons();
 }
 
 function activateGameKeycodes() {
@@ -306,6 +320,66 @@ function executeGameActionUsingKeyboard() {
   }
 }
 
+function activateGameButtons() {
+  moveLeftOnButtonClick();
+  moveRightOnButtonClick();
+  moveDownOnButtonClick();
+  rotateLeftOnButtonClick();
+  rotateRightOnButtonClick();
+  togglePlayPauseButton();
+}
+
+function moveLeftOnButtonClick() {
+  const leftArrowButton = document.getElementById("buttonLeftArrow");
+  leftArrowButton.onclick = function () {
+    if (!isGamePaused) {
+      playerMove(-1);
+    }
+  };
+}
+
+function moveRightOnButtonClick() {
+  const rightArrowButton = document.getElementById("buttonRightArrow");
+  rightArrowButton.onclick = function () {
+    if (!isGamePaused) {
+      playerMove(1);
+    }
+  };
+}
+
+function moveDownOnButtonClick() {
+  const downArrowButton = document.getElementById("buttonDownArrow");
+  downArrowButton.onclick = function () {
+    if (!isGamePaused) {
+      playerDrop();
+    }
+  };
+}
+
+function rotateLeftOnButtonClick() {
+  const rotateLeftButton = document.getElementById("buttonRotateLeft");
+  rotateLeftButton.onclick = function () {
+    if (!isGamePaused) {
+      playerRotate(-1);
+    }
+  };
+}
+
+function rotateRightOnButtonClick() {
+  const rotateRightButton = document.getElementById("buttonRotateRight");
+  rotateRightButton.onclick = function () {
+    if (!isGamePaused) {
+      playerRotate(1);
+    }
+  };
+}
+
+function togglePlayPauseButton() {
+  playPauseGameButton.onclick = function () {
+    pauseGame();
+  };
+}
+
 const colors = [
   null,
   '#FF0D72',
@@ -327,7 +401,7 @@ const player = {
 };
 
 playerReset();
-activateGameKeycodes();
+activateControls();
 updateScore();
 updateLines();
 update();

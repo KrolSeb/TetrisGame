@@ -28,6 +28,7 @@
     <div id="gameContainer">
       <div class="container">
         <div class="row justify-content-center">
+
           <div class="col-lg-3 col-xl-3 my-auto d-none d-lg-block default-column-style text-center">
             <p class="red-text">Score</p>
             <h5 class="default-column-header" id="column-points-count"></h5>
@@ -35,6 +36,7 @@
             <p class="red-text">Lines</p>
             <h5 class="default-column-header" id="column-lines-count"></h5>
           </div>
+
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 my-2 text-center">
             <div class="row justify-content-center">
               <div id="pauseOverlay" class="pause-overlay">
@@ -43,9 +45,34 @@
               <canvas id="tetrisBoard" class="canvas-style"></canvas>
             </div>
           </div>
+
+          <div class="col-8 col-sm-6 col-md-4 col-lg-3 col-xl-3 my-auto default-column-style text-center">
+            <div class="row justify-content-center">
+              <button id="buttonRotateLeft" class="btn rotate-button" onclick="">
+                <img class="game-control-icon" src="assets/img/rotate-left.svg" alt="">
+              </button>
+              <button id="buttonPlayPauseGame" class="btn play-button" onclick="">
+                <img id="playPauseImage" class="game-control-icon" src="assets/img/play.svg" alt="">
+              </button>
+              <button id="buttonRotateRight" class="btn rotate-button" onclick="">
+                <img class="game-control-icon" src="assets/img/rotate-right.svg" alt="">
+              </button>
+            </div>
+            <div class="row justify-content-center">
+              <button id="buttonLeftArrow" class="btn arrow-button" onclick="">
+                <img class="game-control-icon" src="assets/img/left-arrow.svg" alt="">
+              </button>
+              <button id="buttonDownArrow" class="btn arrow-button" onclick="">
+                <img class="game-control-icon" src="assets/img/down-arrow.svg" alt="">
+              </button>
+              <button id="buttonRightArrow" class="btn arrow-button" onclick="">
+                <img class="game-control-icon" src="assets/img/right-arrow.svg" alt="">
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-
     </div>
   </main>
 
