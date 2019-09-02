@@ -73,10 +73,6 @@ p {
   margin-left: auto;
   margin-right: auto; }
 
-@media (max-width: 767px) {
-  .default-column-style {
-    background: transparent;
-    border: none; } }
 .game-control-icon {
   width: 30px; }
 
@@ -100,5 +96,143 @@ button {
 
 .pause-button {
   background-color: #ff0000; }
+
+.navbar {
+  background: black;
+  border: none;
+  border-radius: 0;
+  box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5); }
+
+.navbar-text {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold; }
+
+.navbar-tetris-header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: -webkit-linear-gradient(#5698f8, #e446c6, #fcba40, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-color: #eee;
+  -webkit-text-stroke-width: 1px; }
+
+.navbar-points-count {
+  font-size: 20px;
+  color: #3aa7f8; }
+
+.navbar-countdown {
+  font-size: 20px;
+  color: #3aa7f8; }
+
+.stats-button {
+  font-family: 'Orbitron', sans-serif;
+  display: inline-block;
+  color: #fff;
+  background-color: #ff0000;
+  border-color: #ff0000;
+  font-weight: bold;
+  font-size: 16px; }
+
+.stats-button:hover {
+  color: #fff;
+  background-color: #E50000;
+  border-color: #E50000;
+  font-weight: bold; }
+
+.stats-button.focus,
+.stats-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5); }
+
+.stats-button:not(:disabled):not(.disabled).active,
+.stats-button:not(:disabled):not(.disabled):active,
+.show > .stats-button.dropdown-toggle {
+  color: #fff;
+  background-color: #E50000;
+  border-color: #E50000; }
+
+.sidebar-panel {
+  z-index: 1;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  overflow-y: hidden;
+  background: #900000;
+  opacity: 1.0;
+  transition: all .2s;
+  display: grid; }
+
+.sidebar-toggle {
+  transition: all .3s; }
+
+.game-container.menuDisplayed .sidebar-panel {
+  width: 200px; }
+
+.sidebar-nav {
+  padding: 0;
+  list-style: none;
+  transition: all .5s;
+  width: 100%;
+  text-align: center; }
+
+.sidebar-nav li {
+  line-height: 40px;
+  width: 100%;
+  transition: all .3s;
+  padding: 10px;
+  color: white; }
+
+.sidebar-nav p {
+  font-size: 20px; }
+
+.sidebar-nav h5 {
+  font-size: 30px; }
+
+.sidebar-nav li:hover {
+  background: #b70000; }
+
+@media (max-width: 337px) {
+  .navbar {
+    padding: 0.3em; }
+
+  .small-tetris-header {
+    font-size: 18px;
+    letter-spacing: 1px; }
+
+  .game-stats-button {
+    font-size: 14px; } }
+@media (min-width: 338px) and (max-width: 364px) {
+  .navbar {
+    padding: 0.5em; }
+
+  .navbar-tetris-header {
+    font-size: 18px;
+    letter-spacing: 1px; }
+
+  .game-stats-button {
+    font-size: 14px; } }
+@media (min-width: 365px) and (max-width: 423px) {
+  .navbar-tetris-header {
+    font-size: 20px;
+    letter-spacing: 1px; }
+
+  .game-stats-button {
+    font-size: 14px; } }
+@media (max-width: 767px) {
+  .default-column-style {
+    background: transparent;
+    border: none; } }
+@media (min-width: 768px) {
+  .navbar {
+    margin-bottom: 40px; } }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .game-control-icon {
+    width: 25px; } }
+@media (min-width: 1024px) {
+  .navbar-countdown {
+    font-size: 24px; } }
 
 /*# sourceMappingURL=main.css.map */
