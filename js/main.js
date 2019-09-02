@@ -19,8 +19,17 @@ let playPauseImage = document.getElementById("playPauseImage");
 let sidebarLaunchButton = document.getElementById("sidebarLaunch");
 let sidebarCloseButton = document.getElementById("sidebarClose");
 let isSidebarOpened = false;
-
 let gameContainer = document.getElementById("gameContainer");
+
+let timeCountdownCounter = document.getElementById("timeCountdownCounter");
+let timeInSeconds;
+let formattedTime;
+let ticker;
+
+const gameTimeInMinutes = ["infinite", 5, 15];
+let choosenTimeInMinutes = 5;
+let gameTimeInSeconds = choosenTimeInMinutes * 60;
+
 
 //Initialize on site launch
 setCanvasProperties();
@@ -286,12 +295,14 @@ function pauseGame() {
     playPauseGameButton.classList.add('pause-button');
     playPauseGameButton.classList.remove('play-button');
     playPauseImage.src = "assets/img/pause.svg";
+    clearInterval(ticker);
   }
   else {
     pauseOverlay.style.visibility = "hidden";
     playPauseGameButton.classList.add('play-button');
     playPauseGameButton.classList.remove('pause-button');
     playPauseImage.src = "assets/img/play.svg";
+    ticker = setInterval("tick()", 1000);
     update();
   }
 }
@@ -423,6 +434,43 @@ function closeSidebar() {
   };
 }
 
+function startTimer(seconds) {
+  timeInSeconds = parseInt(seconds);
+  formatTime(seconds);
+  updateTime();
+  ticker = setInterval("tick()", 1000);
+}
+
+function tick() {
+  if (timeInSeconds > 0) {
+    timeInSeconds--;
+  }
+  else {
+    clearInterval(ticker);
+  }
+
+  formatTime(timeInSeconds);
+  updateTime();
+}
+
+function formatTime(seconds) {
+  let hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+
+  if (hours < 1) {
+    formattedTime = ((minutes < 10) ? "0" : "") + minutes + ":" + ((seconds < 10) ? "0" : "") + seconds;
+  }
+  else {
+    formattedTime = ((hours < 10) ? "0" : "") + hours + ":" + ((minutes < 10) ? "0" : "") + minutes + ":" + ((seconds < 10) ? "0" : "") + seconds;
+  }
+}
+
+function updateTime() {
+  timeCountdownCounter.innerText = formattedTime;
+}
+
 const colors = [
   null,
   '#FF0D72',
@@ -448,4 +496,5 @@ activateControls();
 updateScore();
 updateLines();
 enableSidebarToggle();
+startTimer(gameTimeInSeconds);
 update();
