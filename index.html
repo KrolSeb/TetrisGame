@@ -23,18 +23,67 @@
   <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
     your browser</a> to improve your experience and security.</p>
   <![endif]-->
-  <main role="main">
 
-    <div id="gameContainer">
+  <main role="main">
+    <div id="gameContainer" class="game-container">
+
+      <div id="sidebarPanel" class="sidebar-panel">
+        <div class="d-flex justify-content-center align-items-center text-center">
+          <button id="sidebarClose" class="btn stats-button sidebar-toggle" type="button">
+            <i class="fas fa-times"></i>
+            <span>Close</span>
+          </button>
+        </div>
+        <div>
+          <ul id="sidebarNav" class="sidebar-nav">
+            <li>
+              <p>Score</p>
+              <h5 id="sidebarPointsCount" class="sidebar-points-count"></h5>
+            </li>
+            <li>
+              <p>Lines</p>
+              <h5 id="sidebarLinesCount" class="sidebar-lines-count"></h5>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="navbar navbar-expand">
+        <div class="container">
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-none d-lg-block text-center">
+            <p class="navbar-text navbar-tetris-header">TETRIS</p>
+          </div>
+
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-lg-none text-center">
+            <div class="navbar-collapse justify-content-center collapse">
+              <ul class="nav navbar-nav text-center">
+                <li class="nav-item">
+                  <p class="navbar-text red-text">Score:
+                    <span id="navbarPointsCount" class="navbar-points-count"></span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-center">
+            <button id="sidebarLaunch" class="btn stats-button ml-auto d-inline-block sidebar-toggle" type="button">
+              <i class="fas fa-bars d-none d-sm-inline-block"></i>
+              <span>Stats</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
       <div class="container">
         <div class="row justify-content-center">
 
           <div class="col-lg-3 col-xl-3 my-auto d-none d-lg-block default-column-style text-center">
             <p class="red-text">Score</p>
-            <h5 class="default-column-header" id="column-points-count"></h5>
+            <h5 id="columnPointsCount" class="default-column-header"></h5>
             <br>
             <p class="red-text">Lines</p>
-            <h5 class="default-column-header" id="column-lines-count"></h5>
+            <h5 id="columnLinesCount" class="default-column-header"></h5>
           </div>
 
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 my-2 text-center">
