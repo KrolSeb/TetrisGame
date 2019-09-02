@@ -7,11 +7,20 @@ const mobileScreenWidth = window.matchMedia("(max-width: 767px)");
 let isGamePaused = false;
 let pauseOverlay = document.getElementById("pauseOverlay");
 
-let columnPointsCount = document.getElementById('column-points-count');
-let columnLinesCount = document.getElementById('column-lines-count');
+let columnPointsCount = document.getElementById('columnPointsCount');
+let columnLinesCount = document.getElementById('columnLinesCount');
+let navbarPointsCount = document.getElementById('navbarPointsCount');
+let sidebarPointsCount = document.getElementById('sidebarPointsCount');
+let sidebarLinesCount = document.getElementById('sidebarLinesCount');
 
 let playPauseGameButton = document.getElementById("buttonPlayPauseGame");
 let playPauseImage = document.getElementById("playPauseImage");
+
+let sidebarLaunchButton = document.getElementById("sidebarLaunch");
+let sidebarCloseButton = document.getElementById("sidebarClose");
+let isSidebarOpened = false;
+
+let gameContainer = document.getElementById("gameContainer");
 
 //Initialize on site launch
 setCanvasProperties();
@@ -261,10 +270,13 @@ function update(time = 0) {
 
 function updateScore() {
   columnPointsCount.innerText = player.score;
+  navbarPointsCount.innerText = player.score;
+  sidebarPointsCount.innerText = player.score;
 }
 
 function updateLines() {
   columnLinesCount.innerText = player.lines;
+  sidebarLinesCount.innerText = player.lines;
 }
 
 function pauseGame() {
@@ -380,6 +392,37 @@ function togglePlayPauseButton() {
   };
 }
 
+function enableSidebarToggle() {
+  toggleSidebar();
+}
+
+function toggleSidebar() {
+  openSidebar();
+  closeSidebar();
+}
+
+function openSidebar() {
+  sidebarLaunchButton.onclick = function () {
+    isGamePaused = false;
+    isSidebarOpened = true;
+    gameContainer.classList.add("menuDisplayed");
+    pauseGame();
+
+    if (mobileScreenWidth.matches) {
+      pauseOverlay.style.visibility = "hidden";
+    }
+  };
+}
+
+function closeSidebar() {
+  sidebarCloseButton.onclick = function () {
+    isSidebarOpened = false;
+    isGamePaused = true;
+    gameContainer.classList.remove("menuDisplayed");
+    pauseGame();
+  };
+}
+
 const colors = [
   null,
   '#FF0D72',
@@ -404,4 +447,5 @@ playerReset();
 activateControls();
 updateScore();
 updateLines();
+enableSidebarToggle();
 update();
