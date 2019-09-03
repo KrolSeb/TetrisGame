@@ -25,8 +25,22 @@
   <![endif]-->
 
   <main role="main">
-    <div id="gameContainer" class="game-container">
+    <div id="gameLoadingView" class="game-loading-view">
+      <div class="d-flex vertical-center justify-content-center">
+        <div class="container">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 mx-auto my-auto">
+            <div class="game-loading-inside">
+              <svg width="250" height="250">
+                <circle id="gameLoadingCountdownCircle" cx="125" cy="125" r="100"></circle>
+                <text id="gameLoadingCountdownNumber" class="game-loading-countdown-number" x="50%" y="50%" dy=".3em"></text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div id="gameContainer" class="game-container">
       <div id="sidebarPanel" class="sidebar-panel">
         <div class="d-flex justify-content-center align-items-center text-center">
           <button id="sidebarClose" class="btn stats-button sidebar-toggle" type="button">
