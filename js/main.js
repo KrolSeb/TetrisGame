@@ -30,6 +30,10 @@ const gameTimeInMinutes = ["infinite", 5, 15];
 let choosenTimeInMinutes = 5;
 let gameTimeInSeconds = choosenTimeInMinutes * 60;
 
+let gameLoadingCountdownCounter = 3;
+let gameLoadingView = document.getElementById("gameLoadingView");
+let gameLoadingCountdownCircle = document.getElementById('gameLoadingCountdownCircle');
+let gameLoadingCountdownNumber = document.getElementById('gameLoadingCountdownNumber');
 
 //Initialize on site launch
 setCanvasProperties();
@@ -471,6 +475,59 @@ function updateTime() {
   timeCountdownCounter.innerText = formattedTime;
 }
 
+function showGameLoadingAnimation(){
+  gameLoadingView.style.opacity = '1';
+  gameLoadingView.style.visibility = 'visible';
+  gameLoadingCountdownNumber.textContent = gameLoadingCountdownCounter;
+  gameLoadingCountdownCircle.style.animation = 'countdown 3s linear forwards';
+}
+
+function resetGameLoadingAnimation() {
+  gameLoadingCountdownCounter = 3;
+  gameLoadingCountdownCircle.style.animation = 'none';
+}
+
+function hideGameLoadingAnimation(){
+  gameLoadingView.style.opacity = '0';
+  gameLoadingView.style.visibility = 'hidden';
+}
+
+function showGameView() {
+  gameContainer.style.opacity = '1';
+  gameContainer.style.visibility = 'visible';
+}
+
+function hideGameView() {
+  gameContainer.style.opacity = '0';
+  gameContainer.style.visibility = 'hidden';
+}
+
+function countdownTimeToGame() {
+  let timer = setInterval(function () {
+    gameLoadingCountdownCounter--;
+    gameLoadingCountdownNumber.textContent = gameLoadingCountdownCounter;
+    if (gameLoadingCountdownCounter === 0) {
+      clearInterval(timer);
+      hideGameLoadingAnimation();
+      resetGameLoadingAnimation();
+      launchGame();
+    }
+  }, 1000);
+}
+
+function launchGame() {
+  showGameView();
+  enableSidebarToggle();
+  startTimer(gameTimeInSeconds);
+
+  playerReset();
+  updateScore();
+  updateLines();
+  update();
+
+  activateControls();
+}
+
 const colors = [
   null,
   '#FF0D72',
@@ -491,10 +548,6 @@ const player = {
   lines: 0
 };
 
-playerReset();
-activateControls();
-updateScore();
-updateLines();
-enableSidebarToggle();
-startTimer(gameTimeInSeconds);
-update();
+hideGameView();
+showGameLoadingAnimation();
+countdownTimeToGame();
