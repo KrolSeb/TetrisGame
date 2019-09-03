@@ -25,6 +25,70 @@
   <![endif]-->
 
   <main role="main">
+    <div id="welcomeView" class="welcome-view">
+      <div class="container my-2 h-100">
+        <div class="row justify-content-center h-100">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mx-auto">
+            <div id="welcomeViewContent" class="welcome-end-game-content">
+              <div class="my-auto">
+                <h1 class="tetris-header">TETRIS</h1>
+              </div>
+              <div class="my-4">
+                <h5 class="blink-effect white-text">Press button to play a game</h5>
+              </div>
+              <div class="mt-4">
+                <h5 class="red-text bold-text">Choose game mode</h5>
+              </div>
+              <div class="my-auto">
+                <button id="fiveMinutesGameButton" type="button" class="btn btn-primary btn-lg default-button-font">5 minutes</button>
+                <button id="infiniteGameButton" type="button" class="btn btn-primary btn-lg default-button-font">Infinite mode</button>
+                <button id="fifteenMinutesGameButton" type="button" class="btn btn-primary btn-lg default-button-font">15 minutes</button>
+              </div>
+              <div class="mt-5">
+                <h5 class="red-text bold-text">Game Controls</h5>
+                <div class="row my-3">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div>
+                      <div class="key w1">Q</div>
+                      <h5 class="blue-text bold-text control-text">- Rotate Left -</h5>
+                      <img class="guide-control-icon" src="assets/img/rotate-left.svg" alt="">
+                    </div>
+                    <div>
+                      <div class="key w1">W</div>
+                      <h5 class="blue-text bold-text control-text">- Rotate Right -</h5>
+                      <img class="guide-control-icon" src="assets/img/rotate-right.svg" alt="">
+                    </div>
+                    <div>
+                      <div class="key w1">P</div>
+                      <h5 class="blue-text bold-text control-text">- Pause -</h5>
+                      <img class="guide-control-icon" src="assets/img/play.svg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div>
+                      <div class="key w1">←</div>
+                      <h5 class="blue-text bold-text control-text">- Move Left -</h5>
+                      <img class="guide-control-icon" src="assets/img/left-arrow.svg" alt="">
+                    </div>
+                    <div>
+                      <div class="key w1">↓</div>
+                      <h5 class="blue-text bold-text control-text">- Move Down -</h5>
+                      <img class="guide-control-icon" src="assets/img/down-arrow.svg" alt="">
+                    </div>
+                    <div>
+                      <div class="key w1">→</div>
+                      <h5 class="blue-text bold-text control-text">- Move Right -</h5>
+                      <img class="guide-control-icon" src="assets/img/right-arrow.svg" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="gameLoadingView" class="game-loading-view">
       <div class="d-flex vertical-center justify-content-center">
         <div class="container">
@@ -155,7 +219,7 @@
         <div class="container my-2 h-100">
           <div class="row justify-content-center h-100">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mx-auto">
-              <div id="endGameContent" class="end-game-content section-border">
+              <div id="endGameContent" class="welcome-end-game-content section-border">
                 <div class="my-auto">
                   <h1 class="tetris-header">TETRIS</h1>
                 </div>
