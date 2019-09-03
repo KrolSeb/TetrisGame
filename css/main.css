@@ -16,6 +16,12 @@ p {
   font-size: 17px;
   font-weight: bold; }
 
+.bold-text {
+  font-weight: bold; }
+
+.control-text {
+  display: inline; }
+
 .red-text {
   color: #ff0000; }
 
@@ -96,6 +102,10 @@ button {
 
 .pause-button {
   background-color: #ff0000; }
+
+.game-container {
+  opacity: 0;
+  visibility: hidden; }
 
 .navbar {
   background: black;
@@ -241,7 +251,20 @@ svg circle {
   margin-top: 0;
   top: 0; }
 
-.end-game-content {
+.welcome-view {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  margin-top: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+
+.welcome-end-game-content {
   margin: auto;
   height: 98%;
   left: 0;
@@ -264,6 +287,35 @@ svg circle {
 
 .default-button-font {
   font-family: 'Saira', sans-serif; }
+
+.key {
+  font-family: 'Saira', sans-serif;
+  display: inline-block;
+  background: #f1f1f1;
+  font-size: 25px;
+  text-align: center;
+  height: 40px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 20px white, 0 5px 0 #b1b1b1, 0 6px 0 1px #7e7e7e, 0 8px 5px #a5a5a5;
+  margin: 15px 0 15px 0; }
+
+.key.round {
+  width: 40px;
+  border-radius: 100%; }
+
+.key.square {
+  width: 40px; }
+
+.key.padded {
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.key.w1 {
+  width: 40px; }
+
+.guide-control-icon {
+  width: 48px;
+  border-radius: 4px; }
 
 @media (max-width: 337px) {
   .navbar {
@@ -292,6 +344,13 @@ svg circle {
 
   .game-stats-button {
     font-size: 14px; } }
+@media screen and (max-width: 480px), screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .tetris-header {
+    font-size: 58px;
+    letter-spacing: 5px; }
+
+  .blink {
+    font-size: 24px; } }
 @media (max-width: 767px) {
   .default-column-style {
     background: transparent;
