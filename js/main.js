@@ -19,7 +19,9 @@ let playPauseImage = document.getElementById("playPauseImage");
 let sidebarLaunchButton = document.getElementById("sidebarLaunch");
 let sidebarCloseButton = document.getElementById("sidebarClose");
 let isSidebarOpened = false;
+
 let gameContainer = document.getElementById("gameContainer");
+let isControlsActivated = false;
 
 let timeCountdownCounter = document.getElementById("timeCountdownCounter");
 let timeInSeconds;
@@ -34,6 +36,16 @@ let gameLoadingCountdownCounter = 3;
 let gameLoadingView = document.getElementById("gameLoadingView");
 let gameLoadingCountdownCircle = document.getElementById('gameLoadingCountdownCircle');
 let gameLoadingCountdownNumber = document.getElementById('gameLoadingCountdownNumber');
+
+let endGameView = document.getElementById("endGameView");
+let endGameStatus = document.getElementById("endGameStatus");
+let endGameDetails = document.getElementById("endGameDetails");
+let status;
+let details;
+let isGameUpdateStopped = false;
+let playAgainButton = document.getElementById("playAgain");
+let changeGameModeButton = document.getElementById("changeGameMode");
+
 
 //Initialize on site launch
 setCanvasProperties();
@@ -197,11 +209,7 @@ function playerReset() {
   player.position.y = 0;
   player.position.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
   if (collide(arena, player)) {
-    arena.forEach(row => row.fill(0));
-    player.score = 0;
-    player.lines = 0;
-    updateScore();
-    updateLines();
+    actionOnLoseGame();
   }
 }
 
@@ -265,7 +273,7 @@ let dropCounter = 0;
 let lastTime = 0;
 
 function update(time = 0) {
-  if (isGamePaused) return;
+  if (isGamePaused || isGameUpdateStopped) return;
 
   const dropInterval = 1000;
   const deltaTime = time - lastTime;
@@ -314,6 +322,7 @@ function pauseGame() {
 function activateControls() {
   activateGameKeycodes();
   activateGameButtons();
+  isControlsActivated = true;
 }
 
 function activateGameKeycodes() {
@@ -451,6 +460,7 @@ function tick() {
   }
   else {
     clearInterval(ticker);
+    actionOnTimeElapse();
   }
 
   formatTime(timeInSeconds);
@@ -517,15 +527,81 @@ function countdownTimeToGame() {
 
 function launchGame() {
   showGameView();
-  enableSidebarToggle();
   startTimer(gameTimeInSeconds);
-
+  enableSidebarToggle();
   playerReset();
   updateScore();
   updateLines();
+  enableUpdate();
   update();
+  if (!isControlsActivated) {
+    activateControls();
+  }
+}
 
-  activateControls();
+function showEndGameView(status, details) {
+  endGameStatus.innerText = status;
+  endGameDetails.innerText = details;
+  endGameView.style.opacity = '1';
+  endGameView.style.visibility = 'visible';
+  onPlayAgainButtonClick();
+  onChangeGameModeButtonClick();
+}
+
+function hideEndGameView() {
+  endGameView.style.opacity = '0';
+  endGameView.style.visibility = 'hidden';
+}
+
+function onPlayAgainButtonClick() {
+  playAgainButton.onclick = function () {
+    hideEndGameView();
+    showGameLoadingAnimation();
+    countdownTimeToGame();
+  }
+}
+
+function onChangeGameModeButtonClick() {
+  changeGameModeButton.onclick = function () {
+    hideEndGameView();
+    showGameLoadingAnimation();
+    countdownTimeToGame();
+  }
+}
+
+function actionOnLoseGame() {
+  disableUpdate();
+  status = "Game over!";
+  details = "You scored " + player.score + " points";
+  clearInterval(ticker);
+  resetGameData();
+  hideGameView();
+  showEndGameView(status, details);
+}
+
+function actionOnTimeElapse() {
+  disableUpdate();
+  status = "Time elapsed!";
+  details = "You scored " + player.score + " points";
+  resetGameData();
+  hideGameView();
+  showEndGameView(status, details);
+}
+
+function enableUpdate() {
+  isGameUpdateStopped = false;
+}
+
+function disableUpdate() {
+  isGameUpdateStopped = true;
+}
+
+function resetGameData() {
+  arena.forEach(row => row.fill(0));
+  player.score = 0;
+  player.lines = 0;
+  updateScore();
+  updateLines();
 }
 
 const colors = [
