@@ -28,10 +28,6 @@ let timeInSeconds;
 let formattedTime;
 let ticker;
 
-const gameTimeInMinutes = ["infinite", 5, 15];
-let choosenTimeInMinutes = 5;
-let gameTimeInSeconds = choosenTimeInMinutes * 60;
-
 let gameLoadingCountdownCounter = 3;
 let gameLoadingView = document.getElementById("gameLoadingView");
 let gameLoadingCountdownCircle = document.getElementById('gameLoadingCountdownCircle');
@@ -46,11 +42,12 @@ let isGameUpdateStopped = false;
 let playAgainButton = document.getElementById("playAgain");
 let changeGameModeButton = document.getElementById("changeGameMode");
 
-
-//Initialize on site launch
-setCanvasProperties();
-setContextProperties();
-initializeCanvasSizeChangeListener();
+let welcomeView = document.getElementById("welcomeView");
+const gameTimeInMinutes = [0, 5, 15];
+let choosenTimeInMinutes;
+let fiveMinutesGameButton = document.getElementById("fiveMinutesGameButton");
+let infiniteGameButton = document.getElementById("infiniteGameButton");
+let fifteenMinutesGameButton = document.getElementById("fifteenMinutesGameButton");
 
 function setCanvasProperties() {
   canvas.height = 800;
@@ -307,15 +304,19 @@ function pauseGame() {
     playPauseGameButton.classList.add('pause-button');
     playPauseGameButton.classList.remove('play-button');
     playPauseImage.src = "assets/img/pause.svg";
-    clearInterval(ticker);
+    if (isTimeChoosen) {
+      clearInterval(ticker);
+    }
   }
   else {
     pauseOverlay.style.visibility = "hidden";
     playPauseGameButton.classList.add('play-button');
     playPauseGameButton.classList.remove('pause-button');
     playPauseImage.src = "assets/img/play.svg";
-    ticker = setInterval("tick()", 1000);
     update();
+    if (isTimeChoosen) {
+      ticker = setInterval("tick()", 1000);
+    }
   }
 }
 
@@ -527,7 +528,7 @@ function countdownTimeToGame() {
 
 function launchGame() {
   showGameView();
-  startTimer(gameTimeInSeconds);
+  checkChoosenGameMode();
   enableSidebarToggle();
   playerReset();
   updateScore();
@@ -564,8 +565,7 @@ function onPlayAgainButtonClick() {
 function onChangeGameModeButtonClick() {
   changeGameModeButton.onclick = function () {
     hideEndGameView();
-    showGameLoadingAnimation();
-    countdownTimeToGame();
+    showWelcomeView();
   }
 }
 
@@ -604,6 +604,65 @@ function resetGameData() {
   updateLines();
 }
 
+function showWelcomeView(){
+  welcomeView.style.opacity = '1';
+  welcomeView.style.visibility = 'visible';
+  onFiveMinutesGameButtonClick();
+  onInfiniteGameButtonClick();
+  onFifteenMinutesGameButtonClick();
+}
+
+function hideWelcomeView(){
+  welcomeView.style.opacity = '0';
+  welcomeView.style.visibility = 'hidden';
+}
+
+function onGameModeButtonClick() {
+  hideWelcomeView();
+  showGameLoadingAnimation();
+  countdownTimeToGame();
+}
+
+function onFiveMinutesGameButtonClick() {
+  fiveMinutesGameButton.onclick = function () {
+    choosenTimeInMinutes = 5;
+    onGameModeButtonClick();
+  }
+}
+
+function onInfiniteGameButtonClick() {
+  infiniteGameButton.onclick = function () {
+    choosenTimeInMinutes = 0;
+    onGameModeButtonClick();
+  }
+}
+
+function onFifteenMinutesGameButtonClick() {
+  fifteenMinutesGameButton.onclick = function () {
+    choosenTimeInMinutes = 15;
+    onGameModeButtonClick();
+  }
+}
+
+function checkChoosenGameMode() {
+  if (choosenTimeInMinutes !== gameTimeInMinutes[0]) {
+    let gameTimeInSeconds = choosenTimeInMinutes * 60;
+    isTimeChoosen(true);
+    formatTime(gameTimeInSeconds);
+    updateTime();
+    timeCountdownCounter.style.visibility = "visible";
+    startTimer(gameTimeInSeconds);
+  }
+  else {
+    isTimeChoosen(false);
+    timeCountdownCounter.style.visibility = "hidden";
+  }
+}
+
+function isTimeChoosen(choice) {
+  return choice;
+}
+
 const colors = [
   null,
   '#FF0D72',
@@ -624,6 +683,7 @@ const player = {
   lines: 0
 };
 
-hideGameView();
-showGameLoadingAnimation();
-countdownTimeToGame();
+setCanvasProperties();
+setContextProperties();
+initializeCanvasSizeChangeListener();
+showWelcomeView();
