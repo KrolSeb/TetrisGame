@@ -166,11 +166,38 @@ function drawMatrix(matrix, offset) {
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value !== 0) {
-        context.fillStyle = colors[value];
+        context.strokeStyle = changeHexShade(colors[value], -0.6);
+        context.lineWidth = .03;
+        context.strokeRect(x + offset.x, y + offset.y, 1, 1);
+
+        let grid = context.createLinearGradient(x + offset.x, y + offset.y, x + offset.x + 1, y + offset.y + 1);
+        grid.addColorStop(0, colors[value]);
+        grid.addColorStop(1, changeHexShade(colors[value], -0.4));
+
+        context.fillStyle = grid;
         context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
     });
   });
+}
+
+function changeHexShade(hexInputColor, opacity) {
+  hexInputColor = String(hexInputColor).replace(/[^0-9a-f]/gi, '');
+  if (hexInputColor.length < 6) {
+    hexInputColor = hexInputColor[0] + hexInputColor[0] + hexInputColor[1] + hexInputColor[1] + hexInputColor[2] + hexInputColor[2];
+  }
+
+  opacity = opacity || 0;
+  let hexOutputColor = "#";
+  let changedColor;
+
+  for (let i = 0; i < 3; i++) {
+    changedColor = parseInt(hexInputColor.substr(i * 2, 2), 16);
+    changedColor = Math.round(Math.min(Math.max(0, changedColor + (changedColor * opacity)), 255)).toString(16);
+    hexOutputColor += ("00" + changedColor).substr(changedColor.length);
+  }
+
+  return hexOutputColor;
 }
 
 function playerDrop() {
