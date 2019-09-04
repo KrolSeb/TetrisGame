@@ -2,10 +2,10 @@ let canvas = document.getElementById('tetrisBoard');
 const canvasBackgroundColor = '#040405';
 
 let context = canvas.getContext('2d');
-const mobileScreenWidth = window.matchMedia("(max-width: 767px)");
+const mobileScreenWidth = window.matchMedia('(max-width: 767px)');
 
 let isGamePaused = false;
-let pauseOverlay = document.getElementById("pauseOverlay");
+let pauseOverlay = document.getElementById('pauseOverlay');
 
 let columnPointsCount = document.getElementById('columnPointsCount');
 let columnLinesCount = document.getElementById('columnLinesCount');
@@ -13,41 +13,47 @@ let navbarPointsCount = document.getElementById('navbarPointsCount');
 let sidebarPointsCount = document.getElementById('sidebarPointsCount');
 let sidebarLinesCount = document.getElementById('sidebarLinesCount');
 
-let playPauseGameButton = document.getElementById("buttonPlayPauseGame");
-let playPauseImage = document.getElementById("playPauseImage");
+let playPauseGameButton = document.getElementById('buttonPlayPauseGame');
+let playPauseImage = document.getElementById('playPauseImage');
 
-let sidebarLaunchButton = document.getElementById("sidebarLaunch");
-let sidebarCloseButton = document.getElementById("sidebarClose");
+let sidebarLaunchButton = document.getElementById('sidebarLaunch');
+let sidebarCloseButton = document.getElementById('sidebarClose');
 let isSidebarOpened = false;
 
-let gameContainer = document.getElementById("gameContainer");
+let gameContainer = document.getElementById('gameContainer');
 let isControlsActivated = false;
 
-let timeCountdownCounter = document.getElementById("timeCountdownCounter");
+let timeCountdownCounter = document.getElementById('timeCountdownCounter');
 let timeInSeconds;
 let formattedTime;
 let ticker;
 
 let gameLoadingCountdownCounter = 3;
-let gameLoadingView = document.getElementById("gameLoadingView");
+let gameLoadingView = document.getElementById('gameLoadingView');
 let gameLoadingCountdownCircle = document.getElementById('gameLoadingCountdownCircle');
 let gameLoadingCountdownNumber = document.getElementById('gameLoadingCountdownNumber');
 
-let endGameView = document.getElementById("endGameView");
-let endGameStatus = document.getElementById("endGameStatus");
-let endGameDetails = document.getElementById("endGameDetails");
+let endGameView = document.getElementById('endGameView');
+let endGameStatus = document.getElementById('endGameStatus');
+let endGameDetails = document.getElementById('endGameDetails');
 let status;
 let details;
 let isGameUpdateStopped = false;
-let playAgainButton = document.getElementById("playAgain");
-let changeGameModeButton = document.getElementById("changeGameMode");
+let playAgainButton = document.getElementById('playAgain');
+let changeGameModeButton = document.getElementById('changeGameMode');
 
-let welcomeView = document.getElementById("welcomeView");
+let welcomeView = document.getElementById('welcomeView');
 const gameTimeInMinutes = [0, 5, 15];
 let choosenTimeInMinutes;
-let fiveMinutesGameButton = document.getElementById("fiveMinutesGameButton");
-let infiniteGameButton = document.getElementById("infiniteGameButton");
-let fifteenMinutesGameButton = document.getElementById("fifteenMinutesGameButton");
+let fiveMinutesGameButton = document.getElementById('fiveMinutesGameButton');
+let infiniteGameButton = document.getElementById('infiniteGameButton');
+let fifteenMinutesGameButton = document.getElementById('fifteenMinutesGameButton');
+
+let pixelsUnit = 'px';
+let stateVisible = 'visible';
+let stateHidden = 'hidden';
+let stateOpacity = '1';
+let stateTransparency = '0';
 
 function setCanvasProperties() {
   canvas.height = 800;
@@ -68,8 +74,12 @@ function resize() {
   let height = window.innerHeight;
   let ratio = canvas.width / canvas.height;
   let width = height * ratio;
-  canvas.style.width = width * getCanvasScale() + 'px';
-  pauseOverlay.style.width = width * getCanvasScale() + 'px';
+  setCanvasAndPauseWidth(width);
+}
+
+function setCanvasAndPauseWidth(width) {
+  canvas.style.width = width * getCanvasScale() + pixelsUnit;
+  pauseOverlay.style.width = width * getCanvasScale() + pixelsUnit;
 }
 
 function getCanvasScale() {
@@ -300,22 +310,22 @@ function updateLines() {
 function pauseGame() {
   isGamePaused = !isGamePaused;
   if (isGamePaused) {
-    pauseOverlay.style.visibility = "visible";
+    pauseOverlay.style.visibility = stateVisible;
     playPauseGameButton.classList.add('pause-button');
     playPauseGameButton.classList.remove('play-button');
-    playPauseImage.src = "assets/img/pause.svg";
+    playPauseImage.src = 'assets/img/pause.svg';
     if (isTimeChoosen) {
       clearInterval(ticker);
     }
   }
   else {
-    pauseOverlay.style.visibility = "hidden";
+    pauseOverlay.style.visibility = stateHidden;
     playPauseGameButton.classList.add('play-button');
     playPauseGameButton.classList.remove('pause-button');
-    playPauseImage.src = "assets/img/play.svg";
+    playPauseImage.src = 'assets/img/play.svg';
     update();
     if (isTimeChoosen) {
-      ticker = setInterval("tick()", 1000);
+      ticker = setInterval('tick()', 1000);
     }
   }
 }
@@ -367,7 +377,7 @@ function activateGameButtons() {
 }
 
 function moveLeftOnButtonClick() {
-  const leftArrowButton = document.getElementById("buttonLeftArrow");
+  const leftArrowButton = document.getElementById('buttonLeftArrow');
   leftArrowButton.onclick = function () {
     if (!isGamePaused) {
       playerMove(-1);
@@ -376,7 +386,7 @@ function moveLeftOnButtonClick() {
 }
 
 function moveRightOnButtonClick() {
-  const rightArrowButton = document.getElementById("buttonRightArrow");
+  const rightArrowButton = document.getElementById('buttonRightArrow');
   rightArrowButton.onclick = function () {
     if (!isGamePaused) {
       playerMove(1);
@@ -385,7 +395,7 @@ function moveRightOnButtonClick() {
 }
 
 function moveDownOnButtonClick() {
-  const downArrowButton = document.getElementById("buttonDownArrow");
+  const downArrowButton = document.getElementById('buttonDownArrow');
   downArrowButton.onclick = function () {
     if (!isGamePaused) {
       playerDrop();
@@ -394,7 +404,7 @@ function moveDownOnButtonClick() {
 }
 
 function rotateLeftOnButtonClick() {
-  const rotateLeftButton = document.getElementById("buttonRotateLeft");
+  const rotateLeftButton = document.getElementById('buttonRotateLeft');
   rotateLeftButton.onclick = function () {
     if (!isGamePaused) {
       playerRotate(-1);
@@ -403,7 +413,7 @@ function rotateLeftOnButtonClick() {
 }
 
 function rotateRightOnButtonClick() {
-  const rotateRightButton = document.getElementById("buttonRotateRight");
+  const rotateRightButton = document.getElementById('buttonRotateRight');
   rotateRightButton.onclick = function () {
     if (!isGamePaused) {
       playerRotate(1);
@@ -430,11 +440,11 @@ function openSidebar() {
   sidebarLaunchButton.onclick = function () {
     isGamePaused = false;
     isSidebarOpened = true;
-    gameContainer.classList.add("menuDisplayed");
+    gameContainer.classList.add('menuDisplayed');
     pauseGame();
 
     if (mobileScreenWidth.matches) {
-      pauseOverlay.style.visibility = "hidden";
+      pauseOverlay.style.visibility = stateHidden;
     }
   };
 }
@@ -443,7 +453,7 @@ function closeSidebar() {
   sidebarCloseButton.onclick = function () {
     isSidebarOpened = false;
     isGamePaused = true;
-    gameContainer.classList.remove("menuDisplayed");
+    gameContainer.classList.remove('menuDisplayed');
     pauseGame();
   };
 }
@@ -452,7 +462,7 @@ function startTimer(seconds) {
   timeInSeconds = parseInt(seconds);
   formatTime(seconds);
   updateTime();
-  ticker = setInterval("tick()", 1000);
+  ticker = setInterval('tick()', 1000);
 }
 
 function tick() {
@@ -475,10 +485,10 @@ function formatTime(seconds) {
   seconds %= 60;
 
   if (hours < 1) {
-    formattedTime = ((minutes < 10) ? "0" : "") + minutes + ":" + ((seconds < 10) ? "0" : "") + seconds;
+    formattedTime = ((minutes < 10) ? '0' : '') + minutes + ':' + ((seconds < 10) ? '0' : '') + seconds;
   }
   else {
-    formattedTime = ((hours < 10) ? "0" : "") + hours + ":" + ((minutes < 10) ? "0" : "") + minutes + ":" + ((seconds < 10) ? "0" : "") + seconds;
+    formattedTime = ((hours < 10) ? '0' : '') + hours + ':' + ((minutes < 10) ? '0' : '') + minutes + ':' + ((seconds < 10) ? '0' : '') + seconds;
   }
 }
 
@@ -487,8 +497,8 @@ function updateTime() {
 }
 
 function showGameLoadingAnimation(){
-  gameLoadingView.style.opacity = '1';
-  gameLoadingView.style.visibility = 'visible';
+  gameLoadingView.style.opacity = stateOpacity;
+  gameLoadingView.style.visibility = stateVisible;
   gameLoadingCountdownNumber.textContent = gameLoadingCountdownCounter;
   gameLoadingCountdownCircle.style.animation = 'countdown 3s linear forwards';
 }
@@ -499,18 +509,18 @@ function resetGameLoadingAnimation() {
 }
 
 function hideGameLoadingAnimation(){
-  gameLoadingView.style.opacity = '0';
-  gameLoadingView.style.visibility = 'hidden';
+  gameLoadingView.style.opacity = stateTransparency;
+  gameLoadingView.style.visibility = stateHidden;
 }
 
 function showGameView() {
-  gameContainer.style.opacity = '1';
-  gameContainer.style.visibility = 'visible';
+  gameContainer.style.opacity = stateOpacity;
+  gameContainer.style.visibility = stateVisible;
 }
 
 function hideGameView() {
-  gameContainer.style.opacity = '0';
-  gameContainer.style.visibility = 'hidden';
+  gameContainer.style.opacity = stateTransparency;
+  gameContainer.style.visibility = stateHidden;
 }
 
 function countdownTimeToGame() {
@@ -543,15 +553,15 @@ function launchGame() {
 function showEndGameView(status, details) {
   endGameStatus.innerText = status;
   endGameDetails.innerText = details;
-  endGameView.style.opacity = '1';
-  endGameView.style.visibility = 'visible';
+  endGameView.style.opacity = stateOpacity;
+  endGameView.style.visibility = stateVisible;
   onPlayAgainButtonClick();
   onChangeGameModeButtonClick();
 }
 
 function hideEndGameView() {
-  endGameView.style.opacity = '0';
-  endGameView.style.visibility = 'hidden';
+  endGameView.style.opacity = stateTransparency;
+  endGameView.style.visibility = stateHidden;
 }
 
 function onPlayAgainButtonClick() {
@@ -571,8 +581,8 @@ function onChangeGameModeButtonClick() {
 
 function actionOnLoseGame() {
   disableUpdate();
-  status = "Game over!";
-  details = "You scored " + player.score + " points";
+  status = 'Game over!';
+  details = 'You scored ' + player.score + ' points';
   clearInterval(ticker);
   resetGameData();
   hideGameView();
@@ -581,8 +591,8 @@ function actionOnLoseGame() {
 
 function actionOnTimeElapse() {
   disableUpdate();
-  status = "Time elapsed!";
-  details = "You scored " + player.score + " points";
+  status = 'Time elapsed!';
+  details = 'You scored ' + player.score + ' points';
   resetGameData();
   hideGameView();
   showEndGameView(status, details);
@@ -605,16 +615,16 @@ function resetGameData() {
 }
 
 function showWelcomeView(){
-  welcomeView.style.opacity = '1';
-  welcomeView.style.visibility = 'visible';
+  welcomeView.style.opacity = stateOpacity;
+  welcomeView.style.visibility = stateVisible;
   onFiveMinutesGameButtonClick();
   onInfiniteGameButtonClick();
   onFifteenMinutesGameButtonClick();
 }
 
 function hideWelcomeView(){
-  welcomeView.style.opacity = '0';
-  welcomeView.style.visibility = 'hidden';
+  welcomeView.style.opacity = stateTransparency;
+  welcomeView.style.visibility = stateHidden;
 }
 
 function onGameModeButtonClick() {
@@ -650,12 +660,12 @@ function checkChoosenGameMode() {
     isTimeChoosen(true);
     formatTime(gameTimeInSeconds);
     updateTime();
-    timeCountdownCounter.style.visibility = "visible";
+    timeCountdownCounter.style.visibility = stateVisible;
     startTimer(gameTimeInSeconds);
   }
   else {
     isTimeChoosen(false);
-    timeCountdownCounter.style.visibility = "hidden";
+    timeCountdownCounter.style.visibility = stateHidden;
   }
 }
 
