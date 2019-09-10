@@ -16,6 +16,7 @@
 - [General info / Inspiration](#general-info/inspiration)
 - [Technologies](#technologies)
 - [List of changes](#list-of-changes)
+- [Status](#status)
 - [Contact](#contact)
 
 ## General info / Inspiration
@@ -53,6 +54,11 @@ To-do list for future development:
 - add database used to store game scores, 
 - add Node.js to project - used to operate on database,
 - drop piece to bottom after space key or button press.
+
+## Status
+
+The basic version of a project (allowing to play the game) has been **completed**.
+In the future I want to implement features listed above.
 
 ## Contact
 
